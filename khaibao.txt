@@ -1,0 +1,76 @@
+/**********************************************KHAI BAO CAU TRUC**************************************************************/
+
+struct Date{
+	int ngay, thang, nam;
+};
+
+//---cthoadon--- danh sach lien ket don
+struct CTHoaDon{
+	//data
+	char MaVT[10];
+	int SoLuong;
+	float DonGia;//int?
+	float VAT;
+	//pointer
+	CTHoaDon *pNext;
+};
+//typedef struct CTHoaDon CTHD;
+
+struct ListCTHD{
+	CTHD *pHead = NULL;
+	int sl = 0;
+};
+typedef struct ListCTHD LISTCTHD;
+
+//---hoadon--- danh sach lien ket don
+struct HoaDon{
+	//data
+	char SoHD[20];
+	Date NgayLap;
+	char Loai;// N:phieu nhap   X:phieu xuat
+	LISTCTHD listcthd;//con tro dscthd
+	//pointer
+	HoaDon *pNext;
+};
+typedef struct HoaDon HOADON;
+
+struct ListHoaDon{
+	HOADON *pHead = NULL;//ds rong
+	int sl = 0;
+};
+typedef struct ListHoaDon LISTHD;
+
+//---vattu--- cay nhi phan tim kiem
+struct VatTu{
+	//data
+	char MaVT[10];
+	char TenVT[50];
+	char DVT[10];// don vi tinh
+	int SLT;// so luong ton
+	//pointer
+	VatTu *pLeft;
+	VatTu *pRight;
+};
+typedef struct VatTu* VATTU;
+
+struct ListVatTu{
+	Tree ds = NULL;//cay ban dau rong
+	int sl = 0;//so luong ban dau
+};
+typedef struct ListVatTu* Tree;
+
+//---nhanvien--- ds tuyen tinh la 1 mang con tro
+struct NhanVien{
+	char MaNV[10];
+	char Ho[40];
+	char Ten[10];
+	int Phai;
+	LISTHD listhd;//con tro dshd
+};
+typedef struct NhanVien NHANVIEN;
+
+struct ListNhanVien{
+	int sl = 0;
+	NHANVIEN *ds[MAXNV];
+};
+typedef struct ListNhanVien LISTNV;
