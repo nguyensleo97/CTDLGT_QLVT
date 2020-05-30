@@ -598,7 +598,7 @@ int ChiNhapSo(int &x)
 }
 
 //xu ly nhap loai hoa don
-string ChiNhapNorX(string& temp)
+char ChiNhapNorX(char& temp)
 {
 	int key;
 	while (true)
@@ -617,15 +617,15 @@ string ChiNhapNorX(string& temp)
 				{
 					return temp;
 				}
-				else if (key == 8)
-				{
-					cout << "\b" << " " << "\b";
-					temp.erase(temp.length() - 1, 1);
-				}
-				else if (key == 27)
-				{
-					return "";
-				}
+//				else if (key == 8)
+//				{
+//					cout << "\b" << " " << "\b";
+//					temp.erase(temp.length() - 1, 1);
+//				}
+//				else if (key == 27)
+//				{
+//					return "";
+//				}
 			}
 			else
 			{
@@ -1453,6 +1453,19 @@ NODEHD TaoNodeHD (HoaDon hd)
 	return p;
 }
 
+//kiem tra trung so hoa don
+int KiemTraSoHD(NODEHD &first, char sohd[20])
+{
+	for (NODEHD k = first; k != NULL; k = k->pNext)
+	{
+		if(strcmp(k->hd.SoHD, sohd) == 0)
+		{
+			return 1;
+		}
+	}
+	return -1;
+}
+
 //them vao cuoi danh sach
 void InsertHD(NODEHD &first, NODEHD p)
 {
@@ -1471,9 +1484,38 @@ void InsertHD(NODEHD &first, NODEHD p)
 }
 
 //ham doc file hoa don
-void DocFileHoaDon()
+void DocFileHoaDon(LISTNV &ds)
 {
-	
+	fstream f1;
+	f1.open("dshoadon.txt", ios::in);
+	char manv[10];
+	f1.ignore();//loai bo ki tu du thua
+	LISTNV* node;
+	while (!f1.eof() && manv != NULL)
+	{
+		HoaDon hd;
+		string data;
+		getline(f1,data);	strcpy(hd.SoHD, data.c_str());
+		f1 >> hd.NgayLap.Ngay;
+		f1.ignore();
+		f1 >> hd.NgayLap.Thang;
+		f1.ignore();
+		f1 >> hd.NgayLap.Nam;
+		f1.ignore();
+		f1 >> hd.Loai;
+//		getline(f1,data);	strcpy(hd.Loai, data.c_str());
+		f1.ignore();
+		
+		NODECTHD dsCTHD;
+//		dsCTHD.n = 0;
+		hd.nodecthd = dsCTHD;
+		
+//		node = ViTriNV(ds, manv);
+//		InsertHD(node->nv.nodehd, TaoNodeHD(hd));
+		
+		f1 >> manv;
+		f1.ignore();
+	}
 }
 
 //ham ghi file hoa don
@@ -1481,6 +1523,93 @@ void GhiFileHoaDon()
 {
 	
 }
+
+//in danh sach hoa don
+void InDSHD(NODEHD &first)
+{
+	AnDauNhay();
+	GiaoDien_InHD(12, 15, "DANH SACH HOA DON");
+	int k = 0;
+	for(NODEHD p = first; p != NULL; p = p->pNext)
+	{
+		int demvt = 0;
+//		for(int i = 0; i < p->hd.nodecthd; i++)
+//		{
+//			demvt++;
+//		}
+		gotoxy(10, 15 + k);
+		cout << p->hd.SoHD;
+		gotoxy(25, 15 + k);
+		cout << p->hd.NgayLap.Ngay << "/" << p->hd.NgayLap.Thang << "/" << p->hd.NgayLap.Nam;
+		gotoxy(50, 15 + k);
+		if (p->hd.Loai == 'n' || p->hd.Loai == 'N')
+		{
+			cout << "Nhap" << demvt;
+		}
+		if (p->hd.Loai == 'x' || p->hd.Loai == 'X')
+		{
+			cout << "Xuat" << demvt;
+		}
+		k++;
+	}
+}
+
+//nhap hoa don
+void NhapHD(LISTNV &ds, LISTVT tree, char manv[10])
+{
+	GiaoDien_LapHD(6, 4, "LAP HOA DON");
+	
+	HoaDon hd;
+	char sohd[20];
+	char loai;
+	cin.getline(sohd, 21);
+	if(sohd == "")
+	{
+		ThongBao("Hay nhap so hoa don !", 9, 5);
+		return;
+	}
+//	for(NODEHD p = nv->nv.nodehd; p -> NULL; p = p ->pNext)
+//	{
+//		if(strcmp(p->hd.SoHD,sohd) == 0)
+//		{
+//			ThongBao("Da co so hoa don nay !", 9, 5);
+//			return;
+//		}
+//	}
+	Date date = Now();
+	gotoxy(25, 9);
+	cout << date.Ngay;
+	gotoxy(28, 9);
+	cout << "/";
+	gotoxy(30, 9);
+	cout << date.Thang;
+	gotoxy(33, 9);
+	cout << "/";
+	gotoxy(35, 9);
+	cout << date.Nam;
+	
+	gotoxy(50, 9);
+	hd.Loai = ChiNhapNorX(loai);
+	
+	strcpy(hd.SoHD, sohd);
+	hd.NgayLap = date;
+	hd.Loai = loai;
+	NODECTHD dsCTHD;
+	hd.nodecthd = dsCTHD;
+	
+//	InsertHD(ds->nv.nodehd, TaoNodeHD(hd));
+//	InDSHD(nv->nv.nodehd);
+	GhiFileHoaDon();
+	
+//	for (NODEHD p = ds->nv.nodehd; p != NULL; p = p->next)
+//	{
+//		if (strcpy(p->hd.SoHD,hd.soHD) == 0)
+//		{
+//			nhapCTHD(tree, p->hd.ds_CTHD, dsVT, loai, p->info.soHD, maNV);
+//		}
+//	}
+}
+
 //*************************MAIN******************************
 int main()
 {
