@@ -1598,7 +1598,7 @@ void NhapHD(LISTNV &ds, LISTVT tree, char manv[10])
 	hd.nodecthd = dsCTHD;
 	
 //	InsertHD(ds->nv.nodehd, TaoNodeHD(hd));
-//	InDSHD(nv->nv.nodehd);
+//	InDSHD(ds->nv.nodehd);
 	GhiFileHoaDon();
 	
 //	for (NODEHD p = ds->nv.nodehd; p != NULL; p = p->next)
@@ -1608,6 +1608,44 @@ void NhapHD(LISTNV &ds, LISTVT tree, char manv[10])
 //			nhapCTHD(tree, p->hd.ds_CTHD, dsVT, loai, p->info.soHD, maNV);
 //		}
 //	}
+}
+
+//************************XU LY CHI TIET HOA DON***************************
+//khoi tao ds lien ket don CTHD
+void InitCTHD(NODECTHD &first)
+{
+	first = NULL;
+}
+
+//tao node chi tiet hoa don
+NODECTHD TaoNodeCTHD (CTHoaDon cthd)
+{
+	NODECTHD p = new NodeCTHD;
+	if ( p == NULL)
+	{
+		cout << "Khong du bo nho de cap phat !";
+		return NULL;
+	}
+	p->cthd = cthd;
+	p->pNext == NULL;
+	return p;
+}
+
+//them vao cuoi danh sach
+void InsertCTHD(NODECTHD &first, NODECTHD p)
+{
+	if(first == NULL)
+	{
+		first = p;
+	}
+	else
+	{
+		NODECTHD last = first;
+		for(; last->pNext != NULL; last = last->pNext)
+		{
+			last->pNext;
+		}
+	}
 }
 
 //*************************MAIN******************************
@@ -1690,10 +1728,10 @@ int main()
 					switch (chon1)
 					{
 						case 1:
-							//Nhap hoa don nhap
+							//nhap hoa don
 							break;
 						case 2:
-							//nhap hoa don xuat
+							//nhap cthd
 							break;
 						case sodong5:
 							break;
