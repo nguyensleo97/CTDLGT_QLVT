@@ -52,7 +52,7 @@ struct HoaDon
 	char SoHD[20];
 	Date NgayLap;
 	char Loai;// N:phieu nhap   X:phieu xuat
-	NODECTHD nodecthd;//con tro dscthd
+	NODECTHD nodecthd;//con tro cthd
 };
 struct NodeHD
 {
@@ -87,7 +87,7 @@ struct NhanVien
 };
 struct ListNhanVien
 {
-	int n;
+	int n; //so luong nhan vien
 	NhanVien *dsnv[MAXNV];
 };
 typedef struct ListNhanVien LISTNV;
@@ -1449,7 +1449,7 @@ NODEHD TaoNodeHD (HoaDon hd)
 		return NULL;
 	}
 	p->hd = hd;
-	p->pNext == NULL;
+	p->pNext = NULL;
 	return p;
 }
 
@@ -1476,52 +1476,81 @@ void InsertHD(NODEHD &first, NODEHD p)
 	else
 	{
 		NODEHD last = first;
-		for(; last->pNext != NULL; last = last->pNext)
-		{
-			last->pNext;
-		}
+		for(; last->pNext != NULL; last = last->pNext);
+		last->pNext = p;
 	}
 }
 
 //ham doc file hoa don
 void DocFileHoaDon(LISTNV &ds)
 {
-	fstream f1;
-	f1.open("dshoadon.txt", ios::in);
+	string data;
+	fstream f;
+	f.open("dshoadon.txt", ios::in);
+	if(f == NULL)
+	{
+		return;
+	}
 	char manv[10];
-	f1.ignore();//loai bo ki tu du thua
+	getline(f, data);
+	strcpy(manv, data.c_str());
+	f.ignore();//loai bo ki tu du thua
+	int vitri;
 	LISTNV* node;
-	while (!f1.eof() && manv != NULL)
+	while (!f.eof() && manv != NULL)
 	{
 		HoaDon hd;
-		string data;
-		getline(f1,data);	strcpy(hd.SoHD, data.c_str());
-		f1 >> hd.NgayLap.Ngay;
-		f1.ignore();
-		f1 >> hd.NgayLap.Thang;
-		f1.ignore();
-		f1 >> hd.NgayLap.Nam;
-		f1.ignore();
-		f1 >> hd.Loai;
-//		getline(f1,data);	strcpy(hd.Loai, data.c_str());
-		f1.ignore();
+		getline(f,data);
+		if(data.size() == 0)
+		{
+			break;
+		}
+		strcpy(hd.SoHD, data.c_str());
+		f >> hd.NgayLap.Ngay;
+		f.ignore();
+		f >> hd.NgayLap.Thang;
+		f.ignore();
+		f >> hd.NgayLap.Nam;
+		f.ignore();
+		f >> hd.Loai;
+		f.ignore();
 		
+		//xu ly danh sach chi tiet hoa don
 		NODECTHD dsCTHD;
-//		dsCTHD.n = 0;
 		hd.nodecthd = dsCTHD;
 		
-//		node = ViTriNV(ds, manv);
-//		InsertHD(node->nv.nodehd, TaoNodeHD(hd));
+		vitri = ViTriNV(ds, manv);
+		InsertHD(ds.dsnv[vitri]->nodehd, TaoNodeHD(hd));
 		
-		f1 >> manv;
-		f1.ignore();
+		f >> manv;
+		f.ignore();
 	}
+	f.close();
 }
 
 //ham ghi file hoa don
-void GhiFileHoaDon()
+void GhiFileHoaDon(LISTNV ds)
 {
-	
+	fstream f;
+	f.open("1.txt", ios::out);
+	NODEHD nodeHD;
+	for(int i = 0; i < ds.n; i++)
+	{
+		nodeHD = ds.dsnv[i]->nodehd;
+		while(nodeHD != NULL)
+		{
+			f << "DS";
+			f << ds.dsnv[i]->MaNV << endl;
+			f << nodeHD->hd.SoHD << endl;
+			f << nodeHD->hd.NgayLap.Ngay << endl;
+			f << nodeHD->hd.NgayLap.Thang << endl;
+			f << nodeHD->hd.NgayLap.Nam << endl;
+			f << nodeHD->hd.Loai << endl;
+			
+			nodeHD = nodeHD->pNext;
+		}
+	}
+	f.close();
 }
 
 //in danh sach hoa don
@@ -1555,8 +1584,9 @@ void InDSHD(NODEHD &first)
 }
 
 //nhap hoa don
-void NhapHD(LISTNV &ds, LISTVT tree, char manv[10])
+void NhapHD(LISTNV &ds, LISTVT tree )
 {
+//	char manv[10];
 	GiaoDien_LapHD(6, 4, "LAP HOA DON");
 	
 	HoaDon hd;
@@ -1597,9 +1627,9 @@ void NhapHD(LISTNV &ds, LISTVT tree, char manv[10])
 	NODECTHD dsCTHD;
 	hd.nodecthd = dsCTHD;
 	
-//	InsertHD(ds->nv.nodehd, TaoNodeHD(hd));
+//	InsertHD(ds.nv.nodehd, TaoNodeHD(hd));
 //	InDSHD(ds->nv.nodehd);
-	GhiFileHoaDon();
+//	GhiFileHoaDon();
 	
 //	for (NODEHD p = ds->nv.nodehd; p != NULL; p = p->next)
 //	{
@@ -1627,7 +1657,7 @@ NODECTHD TaoNodeCTHD (CTHoaDon cthd)
 		return NULL;
 	}
 	p->cthd = cthd;
-	p->pNext == NULL;
+	p->pNext = NULL;
 	return p;
 }
 
@@ -1640,11 +1670,9 @@ void InsertCTHD(NODECTHD &first, NODECTHD p)
 	}
 	else
 	{
-		NODECTHD last = first;
-		for(; last->pNext != NULL; last = last->pNext)
-		{
-			last->pNext;
-		}
+		NODECTHD last = first;	
+		for(; last->pNext != NULL; last = last->pNext);
+		last->pNext = p;
 	}
 }
 
@@ -1661,6 +1689,8 @@ int main()
 	InitTree(tree);
 	DocFileVatTu(tree);
 	DocFileNhanVien(listnv);
+	DocFileHoaDon(listnv);
+	GhiFileHoaDon(listnv);
 	do
 	{
 		chon = MenuDong(MenuCha, sodong);
@@ -1728,13 +1758,68 @@ int main()
 					switch (chon1)
 					{
 						case 1:
-							//nhap hoa don
+							gotoxy(70, 3);
+							cout << "F1: Them HD";
+							gotoxy(70, 4);
+							cout << "F4: Xem CTHD";
+							gotoxy(70, 5);
+							cout << "ESC: Thoat";
+							bool flag = true;
+							bool flg = true;
+							while (flag)
+							{
+								while (_kbhit())
+								{
+									int ch = _getch();
+									if (ch == 224) ch = _getch();
+									if (ch == 0) ch = _getch();
+									switch (ch)
+									{
+										case 59:
+											NhapHD(listnv, tree);
+											system("cls");
+											gotoxy(0, 1);
+											cout << "NHAN VIEN ";// << p1->nv.MANV;
+											gotoxy(70, 3);
+											cout << "F1: Them HD";
+											gotoxy(70, 4);
+											cout << "F4: Xem CTHD";
+											gotoxy(70, 5);
+											cout << "ESC: Thoat";
+				
+//											inDSHD(p1->nv.ds_HD);
+				
+											/*gotoxy(80, 3);
+											cout << "F5: Xoa CTHD";*/
+				
+											//xoa chi tiet hoa don ms lap
+											break;
+										case 62:
+											system("cls");
+											gotoxy(0, 1);
+											cout << "NHAN VIEN ";// << p1->nv.MANV;
+											gotoxy(70, 3);
+											cout << "F1: Them HD";
+											gotoxy(70, 4);
+											gotoxy(70, 4);
+											cout << "F4: Xem CTHD";
+											gotoxy(70, 5);
+											cout << "ESC: Thoat";
+//											inDSHD(p1->nv.ds_HD);
+//											xemCTHD_HD(p1);
+											break;
+										case 27:
+											flag = false;
+											break;
+									}
+								}
+							}
 							break;
-						case 2:
-							//nhap cthd
-							break;
-						case sodong5:
-							break;
+//						case 2:
+//							//nhap cthd
+//							break;
+//						case sodong5:
+//							break;
 					}
 				}
 				while(chon5 != sodong5);
