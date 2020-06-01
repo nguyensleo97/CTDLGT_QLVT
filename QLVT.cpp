@@ -1487,16 +1487,14 @@ void DocFileHoaDon(LISTNV &ds)
 	string data;
 	fstream f;
 	f.open("dshoadon.txt", ios::in);
+	char manv[10];
 	if(f == NULL)
 	{
 		return;
 	}
-	char manv[10];
 	getline(f, data);
 	strcpy(manv, data.c_str());
-	f.ignore();//loai bo ki tu du thua
 	int vitri;
-	LISTNV* node;
 	while (!f.eof() && manv != NULL)
 	{
 		HoaDon hd;
@@ -1532,14 +1530,21 @@ void DocFileHoaDon(LISTNV &ds)
 void GhiFileHoaDon(LISTNV ds)
 {
 	fstream f;
-	f.open("1.txt", ios::out);
+	f.open("dshoadon.txt", ios::out);
 	NODEHD nodeHD;
+	
 	for(int i = 0; i < ds.n; i++)
 	{
-		nodeHD = ds.dsnv[i]->nodehd;
+		if(ds.dsnv[i]->nodehd != NULL)//ktra nv da lap hoa don chua
+		{
+			nodeHD = ds.dsnv[i]->nodehd;//da lap roi -> gan node tam
+		}
+		else
+		{
+			nodeHD = NULL;//chua lap hoa don
+		}
 		while(nodeHD != NULL)
 		{
-			f << "DS";
 			f << ds.dsnv[i]->MaNV << endl;
 			f << nodeHD->hd.SoHD << endl;
 			f << nodeHD->hd.NgayLap.Ngay << endl;
@@ -1690,7 +1695,6 @@ int main()
 	DocFileVatTu(tree);
 	DocFileNhanVien(listnv);
 	DocFileHoaDon(listnv);
-	GhiFileHoaDon(listnv);
 	do
 	{
 		chon = MenuDong(MenuCha, sodong);
@@ -1758,68 +1762,80 @@ int main()
 					switch (chon1)
 					{
 						case 1:
+							NhapHD(listnv, tree);
+							system("cls");
+							gotoxy(0, 1);
+							cout << "NHAN VIEN ";// << p1->nv.MANV;
 							gotoxy(70, 3);
 							cout << "F1: Them HD";
 							gotoxy(70, 4);
 							cout << "F4: Xem CTHD";
 							gotoxy(70, 5);
 							cout << "ESC: Thoat";
-							bool flag = true;
-							bool flg = true;
-							while (flag)
-							{
-								while (_kbhit())
-								{
-									int ch = _getch();
-									if (ch == 224) ch = _getch();
-									if (ch == 0) ch = _getch();
-									switch (ch)
-									{
-										case 59:
-											NhapHD(listnv, tree);
-											system("cls");
-											gotoxy(0, 1);
-											cout << "NHAN VIEN ";// << p1->nv.MANV;
-											gotoxy(70, 3);
-											cout << "F1: Them HD";
-											gotoxy(70, 4);
-											cout << "F4: Xem CTHD";
-											gotoxy(70, 5);
-											cout << "ESC: Thoat";
-				
-//											inDSHD(p1->nv.ds_HD);
-				
-											/*gotoxy(80, 3);
-											cout << "F5: Xoa CTHD";*/
-				
-											//xoa chi tiet hoa don ms lap
-											break;
-										case 62:
-											system("cls");
-											gotoxy(0, 1);
-											cout << "NHAN VIEN ";// << p1->nv.MANV;
-											gotoxy(70, 3);
-											cout << "F1: Them HD";
-											gotoxy(70, 4);
-											gotoxy(70, 4);
-											cout << "F4: Xem CTHD";
-											gotoxy(70, 5);
-											cout << "ESC: Thoat";
-//											inDSHD(p1->nv.ds_HD);
-//											xemCTHD_HD(p1);
-											break;
-										case 27:
-											flag = false;
-											break;
-									}
-								}
-							}
 							break;
-//						case 2:
-//							//nhap cthd
+							
+//							gotoxy(70, 3);
+//							cout << "F1: Them HD";
+//							gotoxy(70, 4);
+//							cout << "F4: Xem CTHD";
+//							gotoxy(70, 5);
+//							cout << "ESC: Thoat";
+//							bool flag = true;
+//							bool flg = true;
+//							while (flag)
+//							{
+//								while (_kbhit())
+//								{
+//									int ch = _getch();
+//									if (ch == 224) ch = _getch();
+//									if (ch == 0) ch = _getch();
+//									switch (ch)
+//									{
+//										case 59:
+//											NhapHD(listnv, tree);
+//											system("cls");
+//											gotoxy(0, 1);
+//											cout << "NHAN VIEN ";// << p1->nv.MANV;
+//											gotoxy(70, 3);
+//											cout << "F1: Them HD";
+//											gotoxy(70, 4);
+//											cout << "F4: Xem CTHD";
+//											gotoxy(70, 5);
+//											cout << "ESC: Thoat";
+//				
+////											inDSHD(p1->nv.ds_HD);
+//				
+//											/*gotoxy(80, 3);
+//											cout << "F5: Xoa CTHD";*/
+//				
+//											//xoa chi tiet hoa don ms lap
+//											break;
+//										case 62:
+//											system("cls");
+//											gotoxy(0, 1);
+//											cout << "NHAN VIEN ";// << p1->nv.MANV;
+//											gotoxy(70, 3);
+//											cout << "F1: Them HD";
+//											gotoxy(70, 4);
+//											gotoxy(70, 4);
+//											cout << "F4: Xem CTHD";
+//											gotoxy(70, 5);
+//											cout << "ESC: Thoat";
+////											inDSHD(p1->nv.ds_HD);
+////											xemCTHD_HD(p1);
+//											break;
+//										case 27:
+//											flag = false;
+//											break;
+//									}
+//								}
+//							}
 //							break;
-//						case sodong5:
-//							break;
+						case 2:
+							//nhap cthd
+							break;
+						case sodong5:
+							break;
 					}
 				}
 				while(chon5 != sodong5);
