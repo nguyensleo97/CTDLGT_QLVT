@@ -1,12 +1,8 @@
-vt01
-tivi
-cai
+VT01
+TIVI
+CAI
 12
-vt02
-tu lanh
-cai
-13
-vt03
-quat
-cai
-6
+VT02
+LAPTOP
+CHIEC
+5
