@@ -6,7 +6,7 @@ struct Date{
 
 //---cthoadon--- danh sach lien ket don
 struct CTHoaDon{
-	//data
+	//data 
 	char MaVT[10];
 	int SoLuong;
 	float DonGia;//int?
