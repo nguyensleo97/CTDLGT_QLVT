@@ -657,71 +657,65 @@ void ChuHoa(char *x)
 }
 
 //bat loi nhap lieu
-int NhapMa(char *x, int max)
-{
-	int key;
-	int i = 0;
-//	int x1 = 0,y1 = 0, x2 = 0,y2 = 0;
-//	char answer;// khong hieu
-	while(true)
-	{
-		while (_kbhit())
-		{
-			key = _getch();
+//char NhapMa(char *x, int max)
+//{
+//	int key;
+//	int i = 0;
+//	while(true)
+//	{
+//		while (_kbhit())
+//		{
+//			key = _getch();
 //			if (key == ESC)
 //			{
 //				x = "";	
 //				cout << endl;		
 //				return ESC;
 //			}
-//			else if(key == 0)
+//			else if(key == ENTER)
 //			{
-//				if(getch() == F2)
-//				{
-//					x = "";	
-//					return F2; 
-//				}
+////				cout << endl;
+//				return ENTER;
 //			}
 //			else if (key == BACKSPACE)
 //			{
 //				if (i == 0)	continue;
 //				else
 //				{
-//					--i; // dai dien so luong phan tu hop le da nhap
+//					i--; // dai dien so luong phan tu hop le da nhap
 //					cout << key << " " << key;// de khoang trang len cho can xoa
 //					x[i] = NULL;
 //					continue;
 //				}
 //			}
-			if (key == SPACE)
-			{
-				ThongBao("Khong duoc chua khoang trang. Xin kiem tra lai !", 9, 5);
-				continue;		
-			}
-			else if (i == max)
-			{
-				ThongBao("Qua so luong ki tu quy dinh !", 9, 5);
-				continue;
-			}
-			else
-			{
-				if ((key >= 48 && key <= 57) || (key >= 65 && key <= 90) || (key >= 97 && key <= 122))
-				{
+////			else if (key == SPACE)
+////			{
+////				ThongBao("Khong duoc chua khoang trang. Xin kiem tra lai !", 9, 5);
+//////				gotoxy(15, 3);
+////				continue;		
+////			}
+//			else if (i == max)
+//			{
+//				ThongBao("Qua so luong ki tu quy dinh !", 9, 5);
+//				continue;
+//			}
+//			else
+//			{
+//				if ((key >= 48 && key <= 57) || (key >= 65 && key <= 90) || (key >= 97 && key <= 122) || key == 32)
+//				{
 //					x[i] = key;
-//					cout << x[i];// xuat ki tu hop le vua nhap
-					cout << (char)key;
-					x[i] += (char)key;
-				}
-				else 
-				{
-					ThongBao("Chuoi chi chua chu hoac so. Xin kiem tra lai!", 9, 5);
-					continue;			
-				}
-			}
-			i++; // nhap 1 ki tu hop le
-		}
-	}
-};
+//					cout << x[i];
+//				}
+//				else
+//				{
+//					ThongBao("Chuoi chi chua chu hoac so. Xin kiem tra lai !", 9, 5);
+//					continue;			
+//				}
+//			}
+//			++i; // nhap 1 ki tu hop le
+//		}
+//	}
+//}
 /***************************************XU LY NGAY***************************************************/
 //tra ve thoi gian hien tai
 Date Now()
@@ -1742,7 +1736,7 @@ void InDSHD(NODEHD first)
 	}
 }
 
-void NhapCTHD(LISTNV &ds, char manv[10], char sohd[20]);
+//void NhapCTHD(LISTNV &ds, char manv[10], char sohd[20]);
 
 //xu ly nhap hoa don
 void NhapHD(LISTNV &ds, LISTVT tree, char manv[10])
@@ -1808,13 +1802,13 @@ void NhapHD(LISTNV &ds, LISTVT tree, char manv[10])
 	system("cls");
 //	return;
 	
-//	for (NODEHD p = ds.dsnv[vitrinv]->nodehd; p != NULL; p = p->pNext)
-//	{
-//		if (strcpy(p->hd.SoHD,sohd) == 0)
-//		{
+	for (NODEHD p = ds.dsnv[vitrinv]->nodehd; p != NULL; p = p->pNext)
+	{
+		if (strcmp(p->hd.SoHD,hd.SoHD) == 0)
+		{
 //				NhapCTHD(ds, p->hd.SoHD, manv);
-//		}
-//	}
+		}
+	}
 }
 
 //************************XU LY CHI TIET HOA DON***************************
@@ -1847,7 +1841,7 @@ void InsertCTHD(NODECTHD &first, NODECTHD p)
 	}
 	else
 	{
-		NODECTHD last = first;	
+		NODECTHD last = first;
 		for(; last->pNext != NULL; last = last->pNext);
 		last->pNext = p;
 	}
@@ -1998,86 +1992,80 @@ void XemCTHD(LISTNV &ds, char manv[10])
 		if(strcmp(sohd,"") == 0)
 		{
 			ThongBao("Hay nhap so hoa don can xem cthd !", 9, 7);
-//			XemCTHD(ds,manv);
 			continue;
 		}
 		
 		int vitrinv;
 		vitrinv = ViTriNV(ds, manv);
 		
-//		for(int i = 0; i < ds.n; i++)
-//		{
-			for (NODEHD p = ds.dsnv[vitrinv]->nodehd; p != NULL; p = p->pNext)
+		for (NODEHD p = ds.dsnv[vitrinv]->nodehd; p != NULL; p = p->pNext)
+		{
+			if (strcmp(p->hd.SoHD, sohd) == 0)
 			{
-				if (strcmp(p->hd.SoHD, sohd) == 0)
-				{
-					AnDauNhay();
-					InDSCTHD(p->hd.nodecthd);
-					return;
-				}
+				AnDauNhay();
+				InDSCTHD(p->hd.nodecthd);
+				return;
 			}
-			ThongBao("Khong co so hoa don nay !", 9, 7);
-			XemCTHD(ds,manv);
-			return;
-//		}
+		}
+		ThongBao("Khong co so hoa don nay !", 9, 7);
+		XemCTHD(ds,manv);
+		return;
 	}
 }
 
 //ham nhap chi tiet hoa don
-void NhapCTHD(LISTNV &ds, char manv[10], char sohd[20])
-{
-	GiaoDien_LapCTHD(12, 3, "LAP CHI TIET HOA DON");
-	
-	VatTu vt;
-	CTHoaDon cthd;
-	char loai;
-	
-	char mavt[10];
-	gotoxy(65, 15);
-	cin.getline(mavt, 21);
-	ChuHoa(mavt);
-	//kiem tra nhap khoang trang
-	if(strcmp(mavt,"") == 0)
-	{
-		ThongBao("Hay nhap ma vat tu !", 5, 5);
-		system("cls");
-		return;
-	}
-	//kiem tra ma vat tu co hay khong
-//	if(TimKiemMaVT(tree,vt) == NULL)
+//void NhapCTHD(LISTNV &ds, LISTVT tree, NODECTHD &dsCTHD, char loai, char sohd[20], char manv[10])
+//{
+//	GiaoDien_LapCTHD(12, 3, "LAP CHI TIET HOA DON");
+//	
+//	VatTu vt;
+//	CTHoaDon cthd;
+//	
+//	char mavt[10];
+//	gotoxy(65, 15);
+//	cin.getline(mavt, 21);
+//	ChuHoa(mavt);
+//	if(strcmp(mavt,"") == 0)
 //	{
-//		ThongBao("Khong co vat tu nay !", 5, 5);
+//		ThongBao("Hay nhap ma vat tu !", 5, 5);
+//		system("cls");
 //		return;
 //	}
-	//trung ma vat tu trong cthd
-//	if(p->cthd.MaVT == mavt)
-//	{
-//		ThongBao("Cthd da co vat tu nay !", 5, 5);
-//		continue;
-//	}
-	int soluong;
-	gotoxy(75, 15);
-	cthd.SoLuong = ChiNhapSo(soluong);
-	int dongia;
-	gotoxy(90, 15);
-	cthd.DonGia = ChiNhapSo(dongia);
-	int vat;
-	gotoxy(105, 15);
-	cthd.VAT = ChiNhapSo(vat);
-	
-	strcpy(cthd.MaVT, mavt);
-	cthd.SoLuong = soluong;
-	cthd.DonGia = dongia;
-	cthd.VAT = vat;
-			
-//	InsertCTHD(, TaoNodeCTHD(cthd));
-//	InDSCTHD(p);
-	
-//	GhiFileCTHD(ds);
-	
-	system("cls");
-//	return;
-}
+//	//kiem tra ma vat tu co hay khong
+////	if(TimKiemMaVT(tree,vt) == NULL)
+////	{
+////		ThongBao("Khong co vat tu nay !", 5, 5);
+////		return;
+////	}
+//	//trung ma vat tu trong cthd
+////	if(p->cthd.MaVT == mavt)
+////	{
+////		ThongBao("Cthd da co vat tu nay !", 5, 5);
+////		continue;
+////	}
+//	int soluong;
+//	gotoxy(75, 15);
+//	cthd.SoLuong = ChiNhapSo(soluong);
+//	int dongia;
+//	gotoxy(90, 15);
+//	cthd.DonGia = ChiNhapSo(dongia);
+//	int vat;
+//	gotoxy(105, 15);
+//	cthd.VAT = ChiNhapSo(vat);
+//	
+//	strcpy(cthd.MaVT, mavt);
+//	cthd.SoLuong = soluong;
+//	cthd.DonGia = dongia;
+//	cthd.VAT = vat;
+//			
+////	InsertCTHD(, TaoNodeCTHD(cthd));
+////	InDSCTHD();
+//	
+////	GhiFileCTHD(ds);
+//	
+////	system("cls");
+////	return;
+//}
 
 //nhap cthd
 void NhapCTHD_HD(LISTNV ds, char manv[10])
@@ -2107,7 +2095,7 @@ void NhapCTHD_HD(LISTNV ds, char manv[10])
 			if (strcmp(p->hd.SoHD, sohd) == 0)
 			{
 				AnDauNhay();
-				NhapCTHD(ds, manv, sohd);
+//				NhapCTHD(ds, manv, sohd);
 				return;
 			}
 			else
@@ -2119,7 +2107,7 @@ void NhapCTHD_HD(LISTNV ds, char manv[10])
 		}
 	}
 }
-
+//*********************THONG KE************************
 //*************************MAIN******************************
 int main()
 {
