@@ -7,6 +7,7 @@
 #include <Windows.h>
 #include <mylib.h>
 #include<time.h>
+#include <cmath>
 
 using namespace std;
 
@@ -194,9 +195,9 @@ int MenuDong(char td [][50], int sodong)
 					cout << td[chon];
 				}
 				break;
-			case 13:
+			case ENTER:
 				return chon+1;
-			case 27:
+			case ESC:
 				system("cls");
 				return sodong;
 		} 
@@ -457,47 +458,47 @@ void ThongBao(string str, int x, int y)
 }
 
 //cho phep nhap chuoi, so, khoang trong
-//string NhapChuoi (string &temp)
-//{
-//	int key;
-//	while (true)
-//	{
-//		while (_kbhit())
-//		{
-//			key = _getch();
-//			if (key != 224)
-//			{
-//				if ((key >= 48 && key < 122) || key == SPACE)
-//				{
-//					cout << (char)key;
-//					temp += (char)key;
-//				}
-//				else if (key == 13)
-//				{
-//					if(temp == "")
-//					{
-//						ThongBao("khong duoc bo trong ma vat tu !", 9, 5);
-//					}
-//					else return temp;
-//				}
-//				else if (key == 8)
-//				{
-//					cout << "\b" << " " << "\b";
-//					temp.erase(temp.length() - 1, 1);
-//				}
-//				else if (key == 27)
-//				{
-//					return "";
-//				}
-//			}
-//			else
-//			{
-//				key = getch();
-//			}
-//		}
-//	}
-//	return temp;
-//}
+string NhapChuoi (string &temp)
+{
+	int key;
+	while (true)
+	{
+		while (_kbhit())
+		{
+			key = _getch();
+			if (key != 224)
+			{
+				if ((key >= 48 && key < 122) || key == SPACE)
+				{
+					cout << (char)key;
+					temp += (char)key;
+				}
+				else if (key == ENTER)
+				{
+					if(temp == "")
+					{
+						ThongBao("khong duoc bo trong ma vat tu !", 9, 5);
+					}
+					else return temp;
+				}
+				else if (key == BACKSPACE)
+				{
+					cout << "\b" << " " << "\b";
+					temp.erase(temp.length() - 1, 1);
+				}
+				else if (key == ESC)
+				{
+					return "";
+				}
+			}
+			else
+			{
+				key = getch();
+			}
+		}
+	}
+	return temp;
+}
 
 //nhap phai nhan vien
 int ChiNhap0or1(int& x)
@@ -661,65 +662,64 @@ void ChuHoa(char *x)
 }
 
 //bat loi nhap lieu
-//char NhapMa(char *x, int max)
-//{
-//	int key;
-//	int i = 0;
-//	while(true)
-//	{
-//		while (_kbhit())
-//		{
-//			key = _getch();
-//			if (key == ESC)
+char NhapMa(char *x, int max)
+{
+	int key;
+	int i = 0;
+	while(true)
+	{
+		while (_kbhit())
+		{
+			key = _getch();
+			if (key == ESC)
+			{
+				x = "";	
+				cout << endl;		
+				return ESC;
+			}
+			else if(key == ENTER)
+			{
+//				cout << endl;
+				return ENTER;
+			}
+			else if (key == BACKSPACE)
+			{
+				if (i == 0)	continue;
+				else
+				{
+					i--; // dai dien so luong phan tu hop le da nhap
+					cout << key << " " << key;// de khoang trang len cho can xoa
+					x[i] = NULL;
+					continue;
+				}
+			}
+//			else if (key == SPACE)
 //			{
-//				x = "";	
-//				cout << endl;		
-//				return ESC;
+//				ThongBao("Khong duoc chua khoang trang. Xin kiem tra lai !", 9, 5);
+////				gotoxy(15, 3);
+//				continue;		
 //			}
-//			else if(key == ENTER)
-//			{
-////				cout << endl;
-//				return ENTER;
-//			}
-//			else if (key == BACKSPACE)
-//			{
-//				if (i == 0)	continue;
-//				else
-//				{
-//					i--; // dai dien so luong phan tu hop le da nhap
-//					cout << key << " " << key;// de khoang trang len cho can xoa
-//					x[i] = NULL;
-//					continue;
-//				}
-//			}
-////			else if (key == SPACE)
-////			{
-////				ThongBao("Khong duoc chua khoang trang. Xin kiem tra lai !", 9, 5);
-//////				gotoxy(15, 3);
-////				continue;		
-////			}
-//			else if (i == max)
-//			{
-//				ThongBao("Qua so luong ki tu quy dinh !", 9, 5);
-//				continue;
-//			}
-//			else
-//			{
-//				if ((key >= 48 && key <= 57) || (key >= 65 && key <= 90) || (key >= 97 && key <= 122) || key == 32)
-//				{
-//					x[i] = key;
-//					cout << x[i];
-//				}
-//				else
-//				{
-//					ThongBao("Chuoi chi chua chu hoac so. Xin kiem tra lai !", 9, 5);
-//					continue;			
-//				}
-//			}
-//			++i; // nhap 1 ki tu hop le
-//		}
-//	}
-//}
+			else if (i == max)
+			{
+				continue;
+			}
+			else
+			{
+				if ((key >= 48 && key <= 57) || (key >= 65 && key <= 90) || (key >= 97 && key <= 122) || key == 32)
+				{
+					x[i] = key;
+					cout << x[i];
+				}
+				else
+				{
+					ThongBao("Chuoi chi chua chu hoac so. Xin kiem tra lai !", 9, 5);
+					continue;			
+				}
+			}
+			++i; // nhap 1 ki tu hop le
+		}
+	}
+}
 /***************************************XU LY NGAY***************************************************/
 //tra ve thoi gian hien tai
 Date Now()
@@ -956,6 +956,25 @@ ListVatTu* TimKiemMaVT (LISTVT tree, VatTu vt)
 	return NULL;
 }
 
+//check ma vat tu
+ListVatTu* CheckMaVT(LISTVT tree, char mavt[10])
+{
+	if (tree == NULL) return NULL;
+	if (strcmp(tree->vt.MaVT, mavt) == 0)
+	{
+		ListVatTu* p = tree;
+		return p;
+	}
+	else if (strcmp(tree->vt.MaVT, mavt) > 0)
+	{
+		return CheckMaVT(tree->pLeft, mavt);
+	}
+	else
+	{
+		return CheckMaVT(tree->pRight, mavt);
+	}
+}
+
 //______________________THEM VAT TU___________________________
 //in danh sach vat tu
 void InDSVT(LISTVT tree, int& i)
@@ -982,10 +1001,12 @@ void InDSVT(LISTVT tree, int& i)
 //ham them vat tu
 void ThemVT(LISTVT &tree)
 {
+	bool flag = true;
+	int key = 0;
 	int x = 0;
 	system("cls");
 	InDSVT(tree, x);
-	while(true)
+	do
 	{
 		VatTu vt;
 		GiaoDien_InDSVT(0, 3, "NHAP  VAT TU                                       ESC: Thoat");
@@ -1024,7 +1045,20 @@ void ThemVT(LISTVT &tree)
 		int x1 = 0;
 		system("cls");
 		InDSVT(tree, x1);
-	}
+		system("pause");
+		flag = false;
+		if(flag == false)
+		{
+			while(flag == false)
+			{
+				while (_kbhit())
+				{
+					key = _getch();
+					if (key == ESC) return;
+				}
+			}
+		}
+	}while(flag == true);
 }
 
 //_____________________XOA VAT TU_____________________
@@ -1413,18 +1447,18 @@ void XoaNV(LISTNV &ds)
 			continue;
 		}
 		//ktra nhan vien: neu da lap hoa don thi ko xoa duoc
-//		for(int i = 0; i < ds.n; i++)
-//		{
-//			for(NODEHD p = ds.dsnv[i]->nodehd; p != NULL; p = p->pNext)
-//			{
-//				if(ds.dsnv[i]->nodehd != NULL)
-//				{
-//					
-//					ThongBao("Nhan vien da lap hoa don. KHONG XOA DUOC !", 9, 5);
-//					return;
-//				}
-//			}
-//		}
+		for(int i = 0; i < ds.n; i++)
+		{
+			for(NODEHD p = ds.dsnv[i]->nodehd; p != NULL; p = p->pNext)
+			{
+				if(ds.dsnv[i]->nodehd != NULL)
+				{
+					
+					ThongBao("Nhan vien da lap hoa don. KHONG XOA DUOC !", 9, 5);
+					return;
+				}
+			}
+		}
 		//xu ly
 		for (int i = kt; i < ds.n; i++)
 		{
@@ -1900,7 +1934,7 @@ void DocFileCTHD(LISTNV &ds)
 				f >> cthd.VAT;
 				f.ignore();
 				
-				hd.nodecthd = NULL;
+//				hd.nodecthd = NULL;
 				//xu ly
 				InsertCTHD(p->hd.nodecthd, TaoNodeCTHD(cthd));
 				break;
@@ -2024,7 +2058,7 @@ void NhapCTHD(LISTNV &ds, LISTVT tree, NODECTHD &first, char loai, char sohd[20]
 {
 	gotoxy(70, 7);
 	cout << "ESC: Ket thuc nhap CTHD";
-	GiaoDien_LapCTHD(12, 3, "LAP CHI TIET HOA DON");
+	GiaoDien_LapCTHD(12, 15, "LAP CHI TIET HOA DON");
 	int k = 0;
 	for(NODECTHD p = first; p != NULL; p = p->pNext)
 	{
@@ -2041,21 +2075,14 @@ void NhapCTHD(LISTNV &ds, LISTVT tree, NODECTHD &first, char loai, char sohd[20]
 		if(strcmp(mavt,"") == 0)
 		{
 			ThongBao("Hay nhap ma vat tu !", 5, 5);
-			system("cls");
-			return;
+			NhapCTHD(ds, tree, first, loai, sohd, manv);
 		}
-		//kiem tra ma vat tu co hay khong
-//		if(TimKiemMaVT(tree,vt) == NULL)
-//		{
-//			ThongBao("Khong co vat tu nay !", 5, 5);
-//			return;
-//		}
 		//trung ma vat tu trong cthd
-	//	if(p->cthd.MaVT == mavt)
-	//	{
-	//		ThongBao("Cthd da co vat tu nay !", 5, 5);
-	//		continue;
-	//	}
+		if(strcmp(p->cthd.MaVT,mavt) == 0)
+		{
+			ThongBao("Cthd da co vat tu nay !", 5, 5);
+			NhapCTHD(ds, tree, first, loai, sohd, manv);
+		}
 		gotoxy(75, 15 + k);
 		cthd.SoLuong = ChiNhapSo(soluong);
 		gotoxy(90, 15 + k);
@@ -2068,58 +2095,81 @@ void NhapCTHD(LISTNV &ds, LISTVT tree, NODECTHD &first, char loai, char sohd[20]
 		cthd.DonGia = dongia;
 		cthd.VAT = vat;
 		
-		int n = 0;
-		VatTu mangvt[50];//khoi tao mang vat tu
-		MangTam_VT(tree, mangvt, n);
-		
-		for(int i = 0; i < n; i++)
+		ListVatTu *p1 = new ListVatTu;
+		int checkma = 0;
+		int checkma1 = 0;
+		do
 		{
-			if(strcmp(mangvt[i].MaVT, mavt) == 0)
+			p1 = CheckMaVT(tree, mavt);
+			if(p1 == NULL)
 			{
-				if(loai == 'n')
-				{
-					int sl = mangvt[i].SLT;
-					mangvt[i].SLT = sl + soluong;
-					
-					InsertCTHD(p, TaoNodeCTHD(cthd));
-					GhiFileCTHD(ds);
-					break;
-				}
-				if(loai == 'x' || loai == 'X')
-				{
-					int sl = mangvt[i].SLT;
-					if(sl < soluong)
-					{
-						gotoxy(5, 2);
-						cout << "Khong du so luong de xuat, hien co : " << sl << endl;
-						system("pause");
-						gotoxy(5, 2);
-						cout << "                                   ";
-						gotoxy(0, 3);
-						cout << "                                   ";
-						break;
-					}
-					else
-					{
-						mangvt[i].SLT = sl - soluong;
-						
-						InsertCTHD(p, TaoNodeCTHD(cthd));
-						GhiFileCTHD(ds);
-						break;
-					}
-				}
+				ThongBao("Khong co ma vat tu nay !", 9, 5);
+				checkma = 0;
 			}
 			else
 			{
-				ThongBao("Khong co vat tu nay !", 5, 5);
-			}
-		}
+				for(NODECTHD q = first; q != NULL; q = q->pNext)
+				{
+					if(strcmp(q->cthd.MaVT, mavt) == 0)
+					{
+						ThongBao("Da nhap ma vat tu nay cho cthd !", 9, 5);
+						checkma1 = 1;
+						gotoxy(65, 15 + k);
+					}
+					gotoxy(65, 15 + k);
+				}
 				
-		InsertCTHD(p, TaoNodeCTHD(cthd));
-//		system("cls");
-//		InDSCTHD(p);
+				if(checkma1 == 0)
+				{
+					checkma = 1; 
+				}
+			}
+		}while(checkma == 0);
 		
-//		GhiFileCTHD(ds);
+		int checkslt = 0;
+//		do
+//		{
+//		int sl = p1->vt.SLT;
+//		clrscr();
+//		cout << p1->vt.SLT;
+//		system("pause");
+			if(loai == 'x' || loai == 'X')
+			{
+				//sl nhap vao lon hon sl trong vat tu
+				if(cthd.SoLuong > p1->vt.SLT)
+				{
+					gotoxy(9, 2);
+					cout << "Khong du vat tu de xuat, hien co : " << p1->vt.SLT << " vat tu";
+//					system("cls");
+					continue;
+				}
+				//sl nhap vao nho hon sl trong vat tu
+				if(cthd.SoLuong < p1->vt.SLT)
+				{
+					int sl = p1->vt.SLT - cthd.SoLuong;
+					p1->vt.SLT -= cthd.SoLuong;
+//					InsertCTHD(p, TaoNodeCTHD(cthd) - 1);
+//					clrscr();
+//		
+//					system("pause");
+					
+					
+					GhiFileCTHD(ds);
+					GhiFileVatTu(tree);
+					
+					
+					return;
+				}
+			}
+			
+			if(loai == 'n' || loai == 'N')
+			{
+				p1->vt.SLT += cthd.SoLuong;
+				InsertCTHD(p, TaoNodeCTHD(cthd));
+				GhiFileCTHD(ds);
+				GhiFileVatTu(tree);
+			}
+//		}while(checkslt == 0);
 		k++;
 	}
 }
@@ -2286,10 +2336,10 @@ int main()
 						{
 							while (_kbhit())
 							{
-								int ch = _getch();
-								if (ch == 224) ch = _getch();
-								if (ch == 0) ch = _getch();
-								switch (ch)
+								int chon = _getch();
+								if (chon == 224) chon = _getch();
+								if (chon == 0) chon = _getch();
+								switch (chon)
 								{
 								case F1:
 									InDSHD(listnv.dsnv[vitrinv]->nodehd);
