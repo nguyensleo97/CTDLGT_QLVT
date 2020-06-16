@@ -1,32 +1,16 @@
 NV01
-VU DUC
+VU
 NGUYEN
 0
 NV02
-BUI ANH
-TUAN
+BUI
+ANH TUAN
 1
 NV03
-HUY
-HUY
-1
-A
-A
-A
-1
-B
-B
-B
-1
-C
-C
-C
-1
-D
-W
-W
+
+
 0
-F
-F
-F
-0
+NV04
+HGHY
+BHD
+1
