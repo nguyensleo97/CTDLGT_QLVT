@@ -28,6 +28,9 @@ const int F1 = 59;
 const int F2 = 60;
 const int F3 = 61;
 const int F4 = 62;
+const int LEFT = 75;
+const int RIGHT = 77;
+const int TAB = 9;
 
 /**********************************************KHAI BAO CAU TRUC**************************************************************/
 struct Date
@@ -136,11 +139,6 @@ char Menu3[sodong3][50] = {	 "1. Them nhan vien",
 							 "3. Sua nhan vien",
 							 "4. Xem danh sach nhan vien",
 							 "5. Thoat" };
-							 
-//char Menu5[sodong5][50] = {  "1. Nhap hoa don",
-//							 "2. Nhap chi tiet hoa don",
-//							 "3. Thoat" };
-							 
 
 int DemDongMenu(char td [sodong][50])
 {
@@ -207,7 +205,7 @@ int MenuDong(char td [][50], int sodong)
 
 void GiaoDien_InDSVT (int y, int n, string c)
 {
-	for (int i = 8; i<= 98; i++)
+	for (int i = 8; i<= 110; i++)
 	{
 		gotoxy(i, 2 + y);
 		cout << char(196);
@@ -216,27 +214,26 @@ void GiaoDien_InDSVT (int y, int n, string c)
 	}
 	for (int i = 0; i < n; i++)
 	{
-		gotoxy(8, 2 + i + y);
+		gotoxy(7, 2 + i + y);
 		cout << char(179);
-		gotoxy(28, 2 + i + y);
+		gotoxy(21, 2 + i + y);
 		cout << char(179);
-		gotoxy(58, 2 + i + y);
+		gotoxy(81, 2 + i + y);
 		cout << char(179);
-		gotoxy(78, 2 + i + y);
+		gotoxy(95, 2 + i + y);
 		cout << char(179);
-		gotoxy(98, 2 + i + y);
+		gotoxy(110, 2 + i + y);
 		cout << char(179);
 	}
-
-	gotoxy(37, y);
+	gotoxy(48, y);
 	cout << c;
-	gotoxy(15, 2 + y);
+	gotoxy(10, 2 + y);
 	cout << "Ma Vat Tu";
-	gotoxy(38, 2 + y);
+	gotoxy(45, 2 + y);
 	cout << "Ten Vat Tu";
-	gotoxy(63, 2 + y);
-	cout << "Don Vi Tinh";
 	gotoxy(83, 2 + y);
+	cout << "Don vi tinh";
+	gotoxy(97, 2 + y);
 	cout << "So Luong Ton";
 }
 
@@ -249,7 +246,6 @@ void GiaoDien_InDSNV(int y, int n, string c)
 		gotoxy(i, n + 1 + y);
 		cout << char(196);
 	}
-
 	for (int i = 0; i < n; i++)
 	{
 		gotoxy(8, 2 + i + y);
@@ -263,7 +259,6 @@ void GiaoDien_InDSNV(int y, int n, string c)
 		gotoxy(98, 2 + i + y);
 		cout << char(179);
 	}
-
 	gotoxy(38, 0 + y);
 	cout << c;
 	gotoxy(13, 2 + y);
@@ -285,7 +280,6 @@ void GiaoDien_InHD(int y, int n, string c)
 		gotoxy(i, n + 1 + y);
 		cout << char(196);
 	}
-
 	for (int i = 0; i < n; i++)
 	{
 		gotoxy(8, 2 + i + y);
@@ -297,7 +291,6 @@ void GiaoDien_InHD(int y, int n, string c)
 		gotoxy(60, 2 + i + y);
 		cout << char(179);
 	}
-
 	gotoxy(25, 0 + y);
 	cout << c;
 	gotoxy(12, 2 + y);
@@ -317,7 +310,6 @@ void GiaoDien_LapHD(int y, int n, string c)
 		gotoxy(i, n + 1 + y);
 		cout << char(196);
 	}
-
 	for (int i = 0; i < n; i++)
 	{
 		gotoxy(8, 2 + i + y);
@@ -329,7 +321,6 @@ void GiaoDien_LapHD(int y, int n, string c)
 		gotoxy(60, 2 + i + y);
 		cout << char(179);
 	}
-
 	gotoxy(29, 0 + y);
 	cout << c;
 	gotoxy(12, 2 + y);
@@ -349,7 +340,6 @@ void GiaoDien_LapCTHD(int y, int n, string c)
 		gotoxy(i, n + 1 + y);
 		cout << char(196);
 	}
-
 	for (int i = 0; i < n; i++)
 	{
 		gotoxy(63, 2 + i + y);
@@ -363,7 +353,6 @@ void GiaoDien_LapCTHD(int y, int n, string c)
 		gotoxy(110, 2 + i + y);
 		cout << char(179);
 	}
-
 	gotoxy(73, 0 + y);
 	cout << c;
 	gotoxy(67, 2 + y);
@@ -384,7 +373,6 @@ void GiaoDien_ThongKeHD()
 	cout << "Tu ngay : ";
 	gotoxy(55, 2);
 	cout << "Den ngay : ";
-
 	for (int i = 8; i <= 108; i++)
 	{
 		gotoxy(i, 5);
@@ -392,7 +380,6 @@ void GiaoDien_ThongKeHD()
 		gotoxy(i, 34);
 		cout << char(196);
 	}
-
 	for (int i = 0; i < 30; i++)
 	{
 		gotoxy(8, 5 + i);
@@ -406,7 +393,6 @@ void GiaoDien_ThongKeHD()
 		gotoxy(108, 5 + i);
 		cout << char(179);
 	}
-
 	gotoxy(15, 5);
 	cout << "So HD";
 	gotoxy(35, 5);
@@ -423,7 +409,6 @@ void GiaoDien_ThongKeDT()
 {
 	gotoxy(20, 1);
 	cout << "BANG THONG KE DOANH THU CUA NAM : ";
-	
 	for (int i = 8; i <= 78; i++)
 	{
 		gotoxy(i, 5);
@@ -431,7 +416,6 @@ void GiaoDien_ThongKeDT()
 		gotoxy(i, 18);
 		cout << char(196);
 	}
-
 	for (int i = 0; i < 14; i++)
 	{
 		gotoxy(8, 5 + i);
@@ -441,64 +425,21 @@ void GiaoDien_ThongKeDT()
 		gotoxy(78, 5 + i);
 		cout << char(179);
 	}
-
 	gotoxy(15, 5);
 	cout << "Thang";
 	gotoxy(35, 5);
 	cout << "Doanh thu";
 }
 
+//hien thi thong bao
 void ThongBao(string str, int x, int y)
 {
 	gotoxy(x, y);
 	cout << str;
-	Sleep(1000);
+	Sleep(1500);
 	gotoxy(x, y);
 	clreol();
 	gotoxy(x, y);
-}
-
-//cho phep nhap chuoi, so, khoang trong
-string NhapChuoi (string &temp)
-{
-	int key;
-	while (true)
-	{
-		while (_kbhit())
-		{
-			key = _getch();
-			if (key != 224)
-			{
-				if ((key >= 48 && key < 122) || key == SPACE)
-				{
-					cout << (char)key;
-					temp += (char)key;
-				}
-				else if (key == ENTER)
-				{
-					if(temp == "")
-					{
-						ThongBao("khong duoc bo trong ma vat tu !", 9, 5);
-					}
-					else return temp;
-				}
-				else if (key == BACKSPACE)
-				{
-					cout << "\b" << " " << "\b";
-					temp.erase(temp.length() - 1, 1);
-				}
-				else if (key == ESC)
-				{
-					return "";
-				}
-			}
-			else
-			{
-				key = getch();
-			}
-		}
-	}
-	return temp;
 }
 
 //nhap phai nhan vien
@@ -534,7 +475,7 @@ int ChiNhap0or1(int& x)
 				}
 				else if (key == SPACE)
 				{
-					ThongBao("Khong duoc bo trong !", 5, 5);
+					ThongBao("Khong duoc bo trong !", 9, 5);
 					gotoxy(85, 3);
 					continue;
 				}
@@ -557,7 +498,7 @@ void AnDauNhay()
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &Info);
 }
 
-//hien thi dau nhay len
+//hien thi dau nhay
 void HienThiDauNhay()
 {
 	CONSOLE_CURSOR_INFO Info;
@@ -565,6 +506,7 @@ void HienThiDauNhay()
 	Info.dwSize = 20;
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &Info);
 }
+
 //xu ly nhap SLT
 int ChiNhapSo(int &x)
 {
@@ -668,64 +610,121 @@ void ChuHoa(char *x)
 	}
 }
 
-//bat loi nhap lieu
-char NhapMa(char *x, int max)
+//them chu so
+void ThemChu(char* A, char kt, int &vt, int &dem)
 {
-	int key;
-	int i = 0;
-	while(true)
+	int l = strlen(A);
+	A[l+1] = '\0';
+	while(l != vt)
 	{
-		while (_kbhit())
-		{
-			key = _getch();
-			if (key == ESC)
-			{
-				x = "";	
-				cout << endl;		
-				return ESC;
-			}
-			else if(key == ENTER)
-			{
-//				cout << endl;
-				return ENTER;
-			}
-			else if (key == BACKSPACE)
-			{
-				if (i == 0)	continue;
-				else
-				{
-					i--; // dai dien so luong phan tu hop le da nhap
-					cout << key << " " << key;// de khoang trang len cho can xoa
-					x[i] = NULL;
-					continue;
-				}
-			}
-//			else if (key == SPACE)
-//			{
-//				ThongBao("Khong duoc chua khoang trang. Xin kiem tra lai !", 9, 5);
-////				gotoxy(15, 3);
-//				continue;		
-//			}
-			else if (i == max)
-			{
-				continue;
-			}
-			else
-			{
-				if ((key >= 48 && key <= 57) || (key >= 65 && key <= 90) || (key >= 97 && key <= 122) || key == 32)
-				{
-					x[i] = key;
-					cout << x[i];
-				}
-				else
-				{
-					ThongBao("Chuoi chi chua chu hoac so. Xin kiem tra lai !", 9, 5);
-					continue;			
-				}
-			}
-			++i; // nhap 1 ki tu hop le
-		}
+		A[l] = A[l-1];
+		l--;
 	}
+	A[vt]=kt;
+	vt++;
+	dem++;
+}
+
+//xoa chu so
+void XoaChu(char* A, int &vt, int &dem)
+{
+	int l = strlen(A);
+	for(int i = vt; i<l; i++)
+	{
+		A[i] = A[i+1];
+	}
+	A[l-1] = '\0';
+	vt--;
+	dem--;
+}
+
+//nhap ma
+char *NhapMa(int x, int y, int length, int type, bool &check, bool isValue = false, bool isSpace = false)
+{
+	//isValue kiem tra co gia tri cua text khong
+	//type = 0 => nhap ma
+	//type = 1 => nhap so
+	char *text = new char[length];// hung ket qua khi nhap lieu
+	text[0] = '\0';
+	int dem = 0, temp = 0;//temp vi tri hien tai trong mang char, dem la vi tri lon nhat cua chuoi nhap vao
+	char key;
+	gotoxy(x, y);
+	while(check)
+	{
+		key = GetKey();
+		if(key == ENTER && strlen(text) > 0)
+		{
+//			check=false;
+			return text;
+			
+		}
+		if(type == 0 && (key >= 65 && key <= 90) && (temp >= 0 && temp < length))
+		{
+			ThemChu(text, key, temp, dem);
+			for(int i = 0; i <= length; i++)
+			{
+				gotoxy(x+i, y);
+				cout << " ";
+			} 
+			gotoxy(x, y);
+			cout << text;
+		}
+		if(type == 0 && (key >= 97 && key <= 122)  && (temp >= 0 && temp < length))
+		{
+			key -= 32;
+			ThemChu(text, key, temp, dem);
+			for(int i = 0; i <= length; i++)
+			{
+				gotoxy(x+i, y);
+				cout << " ";
+			} 
+			gotoxy(x, y);
+			cout << text;
+		}
+		if((key >= 48 && key <= 57) && (temp >= 0 && temp < length))
+		{
+			ThemChu(text, key, temp, dem);
+			for(int i = 0; i <= length; i++)
+			{
+				gotoxy(x+i, y);
+				cout << " ";
+			} 
+			gotoxy(x, y);
+			cout << text;
+		}
+		if(isSpace == true && key == SPACE && (temp >= 0 && temp < length))
+		{
+			ThemChu(text, ' ', temp, dem);
+			for(int i = 0; i <= length; i++)
+			{
+				gotoxy(x+i, y);
+				cout << " ";
+			} 
+			gotoxy(x, y);
+			cout << text;
+		}
+		if(key == BACKSPACE && temp>0)
+		{
+			int pos = temp - 1;
+			XoaChu(text, pos , dem);
+			for(int i=0; i <= length; i++)
+			{
+				gotoxy(x+i, y);
+				cout << " ";
+			} 
+			gotoxy(x, y);
+			cout << text;
+			temp--;
+		}
+//		if(key == ESC)
+//		{
+//			check = false;
+//		}
+		if(key == TAB && isValue == true)
+		{
+			return NULL;
+		}
+	}	
 }
 /***************************************XU LY NGAY***************************************************/
 //tra ve thoi gian hien tai
@@ -986,16 +985,16 @@ ListVatTu* CheckMaVT(LISTVT tree, char mavt[10])
 //in danh sach vat tu
 void InDSVT(LISTVT tree, int& i)
 {
-	GiaoDien_InDSVT(8, 30, "DANH SACH VAT TU");
+	GiaoDien_InDSVT(8, 30, "---DANH SACH VAT TU---");
 	if(tree!=NULL)
 	{
-		gotoxy(15, 11 + i);
+		gotoxy(10, 11 + i);
 		cout << tree->vt.MaVT;
-		gotoxy(35, 11 + i);
+		gotoxy(26, 11 + i);
 		cout << tree->vt.TenVT;
-		gotoxy(65, 11 + i);
+		gotoxy(84, 11 + i);
 		cout << tree->vt.DVT;
-		gotoxy(85, 11 + i);
+		gotoxy(98, 11 + i);
 		cout << tree->vt.SLT;
 
 		i++;
@@ -1049,23 +1048,23 @@ void XemDSVT(LISTVT tree)
 	int key;
 	if ( tree == NULL)
 	{
-		ThongBao("Danh sach rong !", 9, 5);
+		ThongBao("Danh sach rong !", 7, 5);
 		return;
 	}
-	GiaoDien_InDSVT(0, 30, "DANH SACH VAT TU                                   ESC: Thoat");
+	GiaoDien_InDSVT(0, 30, "-----DANH SACH VAT TU-----                          ESC: Thoat");
 	VatTu vt[MAXVT];
 	int n = 0;
 	getDSVT(tree, vt, n);
 	SX_MaVT(vt, n);
 	for (int i = 0; i < n; i++)
 	{
-		gotoxy(15, 3 + i);
+		gotoxy(10, 3 + i);
 		cout << vt[i].MaVT;
-		gotoxy(35, 3 + i);
+		gotoxy(26, 3 + i);
 		cout << vt[i].TenVT;
-		gotoxy(65, 3 + i);
+		gotoxy(84, 3 + i);
 		cout << vt[i].DVT;
-		gotoxy(85, 3 + i);
+		gotoxy(98, 3 + i);
 		cout << vt[i].SLT;
 	}
 	AnDauNhay();
@@ -1083,45 +1082,51 @@ void XemDSVT(LISTVT tree)
 //ham them vat tu
 void ThemVT(LISTVT &tree)
 {
+//	bool check;
 	int x = 0;
+	int x1 = 0;
 	system("cls");
 	InDSVT(tree, x);
 	while(true)
 	{
 		VatTu vt;
-		GiaoDien_InDSVT(0, 3, "NHAP  VAT TU");
+		GiaoDien_InDSVT(0, 3, "-----NHAP VAT TU-----                               ESC: Thoat");
 		HienThiDauNhay();
-		gotoxy(15, 3);
-		cin.getline(vt.MaVT, 11);
-//		NhapMa(vt.MaVT, 10);
-		ChuHoa(vt.MaVT);
-		if(strcmp(vt.MaVT,"") == 0)
-		{
-			ThongBao("Hay nhap ma vat tu !", 9, 6);
-			ThemVT(tree);
-			return;
-		}
+		
+		bool kt = true;
+		char *mavt;
+		mavt = new char[10];
+		mavt = NhapMa(10,3,10,0,kt);
+		strcpy(vt.MaVT, mavt);
+//		if(!check) {return;}
+
 		if(TimKiemMaVT(tree, vt) != NULL)
 		{
-			ThongBao("Da co vat tu nay roi !", 9, 6);
-			ThemVT(tree);
-//			continue;
+			ThongBao("Da co vat tu nay roi !", 7, 6);
+			system("cls");
+			InDSVT(tree,x1);
+			continue;
 		}
-		gotoxy(35, 3);
-		cin.getline(vt.TenVT, 51);
-		ChuHoa(vt.TenVT);
-		gotoxy(65, 3);
-		cin.getline(vt.DVT, 11);
-		ChuHoa(vt.DVT);
-		gotoxy(85, 3);
+
+		char *tenvt;
+		tenvt = new char[50];
+		tenvt = NhapMa(26, 3, 50, 0, kt, false, true);
+		strcpy(vt.TenVT, tenvt);
+//		if(!check) {return;}
+		
+		char *dvt;
+		dvt = new char[10];
+		dvt = NhapMa(84,3,10,0,kt);
+		strcpy(vt.DVT, dvt);
+//		if(!check) {return;}
+		
+		gotoxy(98, 3);
 		vt.SLT = 0;
 		ChiNhapSo(vt.SLT);
 		
 		InsertVatTu(tree,vt);
 		GhiFileVatTu(tree);
-		
-		ThongBao("Them vat tu thanh cong !", 9, 6);
-		
+		ThongBao("Them vat tu thanh cong !", 7, 6);
 		return;
 	}
 }
@@ -1167,58 +1172,56 @@ void DeleteVatTu(LISTVT &tree, VatTu vt)
 }
 
 //ham xoa vat tu
-void XoaVT(LISTVT &tree, LISTNV ds)
+void XoaVT(LISTVT &tree, LISTNV &ds)
 {
 	while(true)
 	{
 		VatTu vt;
 		if(tree == NULL)
 		{
-			ThongBao("Danh sach vat tu rong !", 9, 5);
+			ThongBao("Danh sach vat tu rong !", 7, 5);
 			return;
 		}
 		int x = 0;
 		system("cls");
 		InDSVT(tree,x);
-		
 		HienThiDauNhay();
-		gotoxy(9,3);
+		gotoxy(7,3);
 		cout << "Nhap ma vat tu can xoa : ";
-		cin.getline(vt.MaVT, 11);
-		ChuHoa(vt.MaVT);
+	
+		bool kt = true;
+		char *mavt;
+		mavt = new char[10];
+		mavt = NhapMa(32,3,10,0,kt);
+		strcpy(vt.MaVT, mavt);
 		
 		ListVatTu* node;
 		node = TimKiemMaVT(tree,vt);
-		if(strcmp(vt.MaVT,"") == 0)
-		{
-			ThongBao("Hay nhap ma vat tu !", 9, 5);
-			return;
-		}
+		
 		if(node == NULL)
 		{
-			ThongBao("Khong tim thay vat tu da nhap !", 9, 5);
+			ThongBao("Khong tim thay vat tu da nhap !", 7, 5);
+			system("cls");
 			continue;
 		}
 		//kiem tra khoa ngoai, mavt trong cthd
-//		for(int i = 0; i < ds.n; i++)
-//		{
-//			for(NODEHD p = ds.dsnv[i]->nodehd; p != NULL; p = p->pNext)
-//			{
-//				for(NODECTHD q = p->hd.nodecthd; q != NULL; q = q->pNext)
-//				{
-//					if(strcmp(q->cthd.MaVT, vt.MaVT) == 0)
-//					{
-//						ThongBao("Vat tu da lap CTHD, KHONG XOA DUOC !", 9, 5);
-//						return;
-//					}
-//				}
-//			}
-//		}
-		
+		for(int i = 0; i < ds.n; i++)
+		{
+			for(NODEHD p = ds.dsnv[i]->nodehd; p != NULL; p = p->pNext)
+			{
+				for(NODECTHD q = p->hd.nodecthd; q != NULL; q = q->pNext)
+				{
+					if(strcmp(q->cthd.MaVT, vt.MaVT) == 0)
+					{
+						ThongBao("Vat tu da lap CTHD, KHONG XOA DUOC !", 7, 5);
+						return;
+					}
+				}
+			}
+		}
 		DeleteVatTu(tree,vt);
 		GhiFileVatTu(tree);
-		
-		ThongBao("Xoa vat tu thanh cong !", 9, 5);
+		ThongBao("Xoa vat tu thanh cong !", 7, 5);
 		return;
 	}
 }
@@ -1228,57 +1231,61 @@ void SuaVT(LISTVT &tree)
 {
 	while(true)
 	{
-		int key;
 		VatTu vt;
+		
 		if(tree == NULL)
 		{
-			ThongBao("Danh sach vat tu rong !", 9, 5);
+			ThongBao("Danh sach vat tu rong !", 7, 5);
 			return;
 		}
 		int x = 0;
 		InDSVT(tree, x);
 		HienThiDauNhay();
-		gotoxy(9,3);
+		gotoxy(7,3);
 		cout << "Nhap ma vat tu can sua : ";
-		cin.getline(vt.MaVT, 11);
-		ChuHoa(vt.MaVT);
-		if(strcmp(vt.MaVT,"") == 0)
-		{
-			ThongBao("Hay nhap ma vat tu !", 9, 5);
-			return;
-		}
+		bool kt = true;
+		char *mavt;
+		mavt = new char[10];
+		mavt = NhapMa(32,3,10,0,kt);
+		strcpy(vt.MaVT, mavt);
+
 		if(TimKiemMaVT(tree,vt) == NULL)
 		{
-			ThongBao("Khong co vat tu nay !", 9, 5);
+			ThongBao("Khong co vat tu nay !", 7, 5);
 			system("cls");
 			continue;
 		}
 		ListVatTu *p = TimKiemMaVT(tree,vt);
+		
 		if (p != NULL)
 		{
 			system("cls");
-			GiaoDien_InDSVT(0, 3, "SUA THONG TIN VAT TU");
+			GiaoDien_InDSVT(0, 3, "---SUA THONG TIN VAT TU---");
 			int x1 = 0;
 			InDSVT(tree,x1);
-//			gotoxy(15,3);
-//			cout << vt.MaVT;
-//			gotoxy(85,3);
-//			cout << vt.SLT;
+			gotoxy(10,3);
+			cout << p->vt.MaVT;
+			gotoxy(98,3);
+			cout << p->vt.SLT;
 			HienThiDauNhay();
-			char TenVT[50];
-			gotoxy(35, 3);
-			cin.getline(TenVT, 51);
-			ChuHoa(TenVT);
-			char DVT[10];
-			gotoxy(65, 3);
-			cin.getline(DVT, 11);
-			ChuHoa(DVT);
 			
-			strcpy(p->vt.TenVT,TenVT);
-			strcpy(p->vt.DVT,DVT);
+			char *tenvt;
+			tenvt = new char[50];
+			tenvt = NhapMa(26, 3, 50, 0, kt, false, true);
+			strcpy(vt.TenVT, tenvt);
+//			if(!check) {return;}
+
+			char *dvt;
+			dvt = new char[10];
+			dvt = NhapMa(84,3,10,0,kt);
+			strcpy(vt.DVT, dvt);
+//			if(!check) {return;}
+			
+			strcpy(p->vt.TenVT,tenvt);
+			strcpy(p->vt.DVT,dvt);
 		}
 		GhiFileVatTu(tree);
-		ThongBao("Sua vat tu thanh cong !", 9, 6);
+		ThongBao("Sua vat tu thanh cong !", 7, 6);
 		system("cls");
 		return;
 	}
@@ -1471,6 +1478,8 @@ void XemDSNV_MaNV(LISTNV ds)
 //ham them nhan vien
 void ThemNV(LISTNV &ds)
 {
+	gotoxy(80,5);
+	cout << "Phai: 1-NAM   0-NU";
 	NhanVien nv;
 	if(FullDSNV(ds) == 1)
 	{
@@ -1517,6 +1526,7 @@ void ThemNV(LISTNV &ds)
 		strcpy(ds.dsnv[ds.n]->Ho,nv.Ho);
 		strcpy(ds.dsnv[ds.n]->Ten, nv.Ten);
 		ds.dsnv[ds.n]->Phai = nv.Phai;
+		ds.dsnv[ds.n]->nodehd = NULL;
 		
 		ThongBao("Them nhan vien thanh cong !", 9, 6);
 		ds.n++;
@@ -1557,9 +1567,9 @@ void XoaNV(LISTNV &ds)
 		}
 		//ktra nhan vien: neu da lap hoa don thi ko xoa duoc
 		int vitri = ViTriNV(ds,manv);
-		for(int i = 0; i < ds.n; i++)
+		for(NODEHD p = ds.dsnv[vitri]->nodehd; p != NULL; p = p->pNext)
 		{
-			if(ds.dsnv[vitri]->nodehd != NULL)
+			if(p != NULL)
 			{
 				ThongBao("Nhan vien da lap hoa don. KHONG XOA DUOC !", 9, 5);
 				return;
@@ -1574,8 +1584,6 @@ void XoaNV(LISTNV &ds)
 		
 		GhiFileNhanVien(ds);
 		ThongBao("Xoa nhan vien thanh cong !", 9, 6);
-//		system("cls");
-//		InDSNV(ds);
 		return;
 	}
 }
@@ -1895,6 +1903,7 @@ void NhapHD(LISTNV &ds, LISTVT tree, char manv[10])
 {
 	GiaoDien_LapHD(6, 3, "LAP HOA DON");
 	HoaDon hd;
+//	hd.nodecthd = NULL;
 	gotoxy(12, 9);
 	char sohd[20];
 	char loai;
@@ -1948,8 +1957,8 @@ void NhapHD(LISTNV &ds, LISTVT tree, char manv[10])
 	int vitrinv = ViTriNV(ds,manv);		
 			
 	InsertHD(ds.dsnv[vitrinv]->nodehd, TaoNodeHD(hd));
-	InDSHD(ds.dsnv[vitrinv]->nodehd);
 	GhiFileHoaDon(ds);
+	InDSHD(ds.dsnv[vitrinv]->nodehd);
 	
 	for (NODEHD p = ds.dsnv[vitrinv]->nodehd; p != NULL; p = p->pNext)
 	{
@@ -2161,13 +2170,13 @@ void XemCTHD(LISTNV &ds, char manv[10])
 }
 
 //ham nhap chi tiet hoa don
-void NhapCTHD(LISTNV &ds, LISTVT tree, NODECTHD &dsCTHD, char loai, char sohd[20], char manv[10])
+void NhapCTHD(LISTNV &ds, LISTVT tree, NODECTHD &first, char loai, char sohd[20], char manv[10])
 {
 	gotoxy(70, 7);
 	cout << "ESC: Ket thuc nhap CTHD";
 	GiaoDien_LapCTHD(12, 15, "LAP CHI TIET HOA DON");
 	int k = 0;
-	for(dsCTHD; dsCTHD != NULL; dsCTHD = dsCTHD->pNext)
+	for(NODECTHD p = first; p != NULL; p = p->pNext)
 	{
 		VatTu vt;
 		CTHoaDon cthd;
@@ -2186,7 +2195,7 @@ void NhapCTHD(LISTNV &ds, LISTVT tree, NODECTHD &dsCTHD, char loai, char sohd[20
 			return;
 		}
 		//trung ma vat tu trong cthd
-		if(strcmp(dsCTHD->cthd.MaVT,mavt) == 0)
+		if(strcmp(p->cthd.MaVT,mavt) == 0)
 		{
 			ThongBao("Cthd da co vat tu nay !", 9, 5);
 			system("cls");
@@ -2217,7 +2226,7 @@ void NhapCTHD(LISTNV &ds, LISTVT tree, NODECTHD &dsCTHD, char loai, char sohd[20
 			}
 			else
 			{
-				for(NODECTHD q = dsCTHD; q != NULL; q = q->pNext)
+				for(NODECTHD q = p; q != NULL; q = q->pNext)
 				{
 					if(strcmp(q->cthd.MaVT, mavt) == 0)
 					{
@@ -2257,7 +2266,7 @@ void NhapCTHD(LISTNV &ds, LISTVT tree, NODECTHD &dsCTHD, char loai, char sohd[20
 				{
 					int sl = p1->vt.SLT - cthd.SoLuong;
 					p1->vt.SLT -= cthd.SoLuong;
-					InsertCTHD(dsCTHD, TaoNodeCTHD(cthd));
+					InsertCTHD(p, TaoNodeCTHD(cthd));
 //					clrscr();
 //					system("pause");
 					
@@ -2272,7 +2281,7 @@ void NhapCTHD(LISTNV &ds, LISTVT tree, NODECTHD &dsCTHD, char loai, char sohd[20
 //				clrscr();
 //				cout << cthd.VAT;
 //				system("pause");
-				InsertCTHD(dsCTHD, TaoNodeCTHD(cthd));
+				InsertCTHD(p, TaoNodeCTHD(cthd));
 				
 				GhiFileCTHD(ds);
 				GhiFileVatTu(tree);
@@ -2330,6 +2339,7 @@ void NhapCTHD_HD(LISTNV ds, LISTVT tree, char loai, char sohd[20], char manv[10]
 //*************************MAIN******************************
 int main()
 {
+	bool check;
 	int chon;
 	int x = 0;
 	
@@ -2451,14 +2461,14 @@ int main()
 				gotoxy(70, 6);
 				cout << "ESC: Thoat";
 				bool flag = true;
-				bool flg = true;
+//				bool flg = true;
 				while (flag)
 				{
 					while (_kbhit())
 					{
 						int chon = _getch();
-						if (chon == 224) chon = _getch();
-						if (chon == 0) chon = _getch();
+//						if (chon == 224) chon = _getch();
+//						if (chon == 0) chon = _getch();
 						switch (chon)
 						{
 						case F1:
